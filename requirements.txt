@@ -1,6 +1,0 @@
-google-generativeai
-chromadb
-pydantic
-python-dotenv
-pyyaml
-colorama
