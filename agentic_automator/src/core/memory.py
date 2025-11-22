@@ -24,3 +24,24 @@ class Memory:
             metadatas=[metadata],
             ids=[tool_name]
         )
+
+    def find_tools(self, query: str, n_results: int = 3) -> List[Dict[str, Any]]:
+        """
+        Finds relevant tools for a given query.
+        """
+        results = self.collection.query(
+            query_texts=[query],
+            n_results=n_results
+        )
+        
+        tools = []
+        if results['ids']:
+            for i, tool_id in enumerate(results['ids'][0]):
+                tools.append({
+                    "name": tool_id,
+                    "description": results['metadatas'][0][i]['description'],
+                    "arguments": json.loads(results['metadatas'][0][i]['arguments'])
+                })
+        return tools
+
+memory = Memory()
